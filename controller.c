@@ -27,7 +27,6 @@
 #include <util/delay.h>
 #include "usb_serial.h"
 #include "mcp2515.h"
-#include "can_error.h"
 #include <avr/wdt.h>
 
 #define LED_CONFIG	(DDRD |= (1<<6))
