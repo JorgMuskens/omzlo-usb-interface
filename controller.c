@@ -469,11 +469,17 @@ int main(void)
     power_check(&vin_flags, &vin_supply_level, &vin_sense_level,&vref_1_1);
 
 	while (1) {
+        FN_LED_RED_CLEAR();
+
+        while (!(usb_serial_get_control() & USB_SERIAL_DTR)) /* wait */ ;
+
+        FN_LED_RED_SET();
+
 		usb_serial_flush_input();
 
         can_init();
 
-		while (1) {
+		while (usb_serial_get_control() & USB_SERIAL_DTR) {
             // If there are packets available, send them to the host
             while ((packet = circ_buffer_pos())!=0) 
             {
